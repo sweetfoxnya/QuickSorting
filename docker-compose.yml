@@ -1,0 +1,23 @@
+version: '3.3'
+services:
+  php:
+    image: php:8.2-fpm
+    volumes:
+      - './src:/var/www/html'
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "81:80"
+      - "433:433"
+    volumes:
+      - './src:/var/www/html'
+      - './nginx/core:/etc/nginx/conf.d'
+
+  mysql:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
